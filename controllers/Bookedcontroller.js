@@ -6,6 +6,7 @@ const router = express.Router();
 export const getInfo = async (req, res) => {
   try {
     const info = await Booked.find().sort({ _id: -1 });
+    console.log(info);
     res.status(200).json(info);
   } catch (error) {
     res.status(404).json({ message: error.message });
