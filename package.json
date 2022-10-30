@@ -6,7 +6,8 @@
   "type": "module",
 
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "backend": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
