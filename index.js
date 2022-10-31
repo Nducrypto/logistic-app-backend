@@ -11,9 +11,9 @@ import userRoutes from "./routes/userRoutes.js";
 const app = express();
 dotenv.config();
 
+app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
 
 app.use("/api/page", homeRoutes);
 app.use("/api/passenger", passengerinfoRoutes);
