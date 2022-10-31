@@ -11,9 +11,18 @@ import userRoutes from "./routes/userRoutes.js";
 const app = express();
 dotenv.config();
 
-app.use(cors());
+const connect = async () => {
+  try {
+    await mongoose.connect(process.env.CONNECTION_URL);
+    console.log("connected to mongodb");
+  } catch (error) {
+    throw error;
+  }
+};
+
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
 
 app.use("/api/page", homeRoutes);
 app.use("/api/passenger", passengerinfoRoutes);
@@ -31,14 +40,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
-
-mongoose
-  .connect(process.env.CONNECTION_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then((req, res) =>
-    app.listen(PORT, () => console.log(`backend Running on Port:${PORT}`))
-  )
-  .catch((error) => console.log(`${error} did not connect`));
+app.listen(5000, () => {
+  connect();
+  console.log("connected to backend");
+});

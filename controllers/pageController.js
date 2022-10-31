@@ -33,7 +33,6 @@ export const getBookingById = async (req, res) => {
 
 export const createBooking = async (req, res) => {
   const booking = req.body;
-  console.log(booking);
   const newBooking = new BookingTravel(booking);
 
   try {
@@ -56,8 +55,6 @@ export const deleteBooking = async (req, res) => {
 };
 
 export const updateSeatAvailability = async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.params);
   try {
     await BookingTravel.updateOne(
       { "seatNumbers.number": req.params.id },

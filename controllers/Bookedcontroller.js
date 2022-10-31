@@ -15,9 +15,7 @@ export const getInfo = async (req, res) => {
 
 export const createInfo = async (req, res) => {
   const info = req.body;
-  console.log(info);
   const newInfo = new Booked(info);
-
   try {
     await newInfo.save();
     res.status(201).json(newInfo);
