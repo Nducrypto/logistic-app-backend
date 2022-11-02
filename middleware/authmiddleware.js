@@ -4,13 +4,12 @@ import { createError } from "../utils/error.js";
 export const verifyUser = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    console.log(req.headers);
     if (!token)
       return next(createError(404, "You Don't Have Token To Do This"));
 
     const existingUser = jwt.verify(token, process.env.JWT_SECRET);
     if (!existingUser) return next(createError(402, "token is not valid"));
-    if (existingUser.id === req.params.id || isAdmin) {
+    if (existingUser.id || isAdmin) {
       next();
     } else {
       return next(createError(404, "You're Not Authoriized"));
@@ -23,7 +22,7 @@ export const verifyUser = (req, res, next) => {
 export const verifyAdmin = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    // console.log(req.headers);
+
     if (!token)
       return next(createError(404, "You Don't Have Token To Do This"));
 
