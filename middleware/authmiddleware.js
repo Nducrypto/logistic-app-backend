@@ -2,8 +2,9 @@ import jwt from "jsonwebtoken";
 import { createError } from "../utils/error.js";
 
 export const verifyUser = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    console.log(req.headers);
     if (!token)
       return next(createError(404, "You Don't Have Token To Do This"));
 
@@ -19,9 +20,10 @@ export const verifyUser = (req, res, next) => {
   }
 };
 
-export const verifyAdmin = () => {
-  const token = req.headers.authorization.split(" ")[1];
+export const verifyAdmin = (req, res, next) => {
   try {
+    const token = req.headers.authorization.split(" ")[1];
+    // console.log(req.headers);
     if (!token)
       return next(createError(404, "You Don't Have Token To Do This"));
 
@@ -31,7 +33,7 @@ export const verifyAdmin = () => {
     if (existingUser.isAdmin) {
       next();
     } else {
-      return next(createError(404, "You're Not An Admin"));
+      return next(createError(405, "You're Not An Admin"));
     }
   } catch (err) {
     next(createError(405, "failed"));

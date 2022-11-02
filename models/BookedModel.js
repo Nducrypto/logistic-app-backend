@@ -8,8 +8,8 @@ const postSchema = mongoose.Schema({
   adults: Number,
   price: String,
   nextOfKinName: String,
-  nextOfKinNumber: Number,
-  phoneNumber: Number,
+  nextOfKinNumber: String,
+  phoneNumber: String,
   email: String,
   creator: String,
   date: {

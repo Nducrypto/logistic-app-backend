@@ -2,11 +2,12 @@ import express from "express";
 
 import {
   createBooking,
-  deleteBooking,
   getBookings,
   getBookingById,
+  deleteLocation,
   updateSeatAvailability,
 } from "../controllers/pageController.js";
+import { verifyAdmin, verifyUser } from "../middleware/authmiddleware.js";
 
 const router = express.Router();
 // import auth from "../middleware/auth.js";
@@ -14,7 +15,7 @@ const router = express.Router();
 router.get("/", getBookings);
 router.get("/:id", getBookingById);
 router.put("/availability/:id", updateSeatAvailability);
-router.post("/", createBooking);
-router.delete("/:id", deleteBooking);
+router.post("/", verifyAdmin, createBooking);
+router.delete("/:id", verifyAdmin, deleteLocation);
 
 export default router;

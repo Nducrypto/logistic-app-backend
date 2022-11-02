@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import Booked from "../models/BookedModel.js";
 
 const router = express.Router();
@@ -22,6 +23,16 @@ export const createInfo = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const deleteInfo = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No booking with id: ${id}`);
+
+  await Booked.findByIdAndRemove(id);
+
+  res.json({ message: "booking deleted successfully." });
 };
 
 export default router;

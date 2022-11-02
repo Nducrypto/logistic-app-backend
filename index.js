@@ -6,7 +6,8 @@ import dotenv from "dotenv";
 
 import homeRoutes from "./routes/pageRoutes.js";
 import passengerinfoRoutes from "./routes/BookedRoute.js";
-import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoute from "./routes/userRoute.js";
 
 const app = express();
 dotenv.config();
@@ -26,7 +27,8 @@ app.use(cors());
 
 app.use("/api/page", homeRoutes);
 app.use("/api/passenger", passengerinfoRoutes);
-app.use("/api/auth", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

@@ -43,9 +43,9 @@ export const createBooking = async (req, res) => {
   }
 };
 
-export const deleteBooking = async (req, res) => {
+export const deleteLocation = async (req, res) => {
   const { id } = req.params;
-
+  console.log(id);
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No booking with id: ${id}`);
 
