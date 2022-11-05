@@ -55,9 +55,11 @@ export const deleteLocation = async (req, res) => {
 };
 
 export const updateSeatAvailability = async (req, res, next) => {
+  // console.log(req.params);
+  // console.log(req.body);
   try {
     await BookingTravel.updateOne(
-      { "seatNumbers.number": req.params.id },
+      { "seatNumbers._id": req.params.id },
       {
         $push: {
           "seatNumbers.$.unavailableDates": req.body.date,

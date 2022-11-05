@@ -12,11 +12,12 @@ const postSchema = mongoose.Schema({
   phoneNumber: String,
   email: String,
   creator: String,
+  bookedSeat: [],
+  selectedSeats: [],
   date: {
     type: Date,
     default: new Date(),
   },
-  selectedSeats: [],
 });
 
 const Booked = mongoose.model("Booked", postSchema);
