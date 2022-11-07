@@ -2,19 +2,26 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema(
   {
-    name: {
+    firstName: {
       type: String,
-      required: true,
-      unique: true,
     },
+    lastName: {
+      type: String,
+    },
+
     email: {
       type: String,
       required: true,
       unique: true,
     },
+
     password: {
       type: String,
       required: true,
+    },
+
+    bio: {
+      type: String,
     },
 
     isAdmin: {
@@ -26,6 +33,6 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const UserBookingTravel = mongoose.model("UserBookingTravel", userSchema);
+const UserLogisticApp = mongoose.model("UserLogisticApp", userSchema);
 
-export default UserBookingTravel;
+export default UserLogisticApp;

@@ -1,34 +1,26 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import UserBookingTravel from "../models/userModel.js";
+import UserLogisticApp from "../models/userModel.js";
 import { createError } from "../utils/error.js";
 
 export const register = async (req, res, next) => {
   const { email, firstName, lastName, password, confirmPassword } = req.body;
 
   try {
-    const existingUser = await UserBookingTravel.findOne({ email });
+    const existingUser = await UserLogisticApp.findOne({ email });
 
     if (req.body.password !== confirmPassword)
       return next(createError(404, "Password Don't Match"));
 
     if (existingUser) return next(createError(402, "User Already Exist."));
 
-    if (
-      !email ||
-      !firstName ||
-      !lastName ||
-      !req.body.password ||
-      !confirmPassword
-    )
-      return next(createError(404, "Please fill in the fields"));
-
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
-    const result = await UserBookingTravel.create({
+    const result = await UserLogisticApp.create({
       email,
+      firstName,
+      lastName,
       password: hashedPassword,
-      name: `${firstName} ${lastName}`,
     });
 
     const token = jwt.sign(
@@ -47,7 +39,7 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   const { email } = req.body;
   try {
-    const existingUser = await UserBookingTravel.findOne({ email });
+    const existingUser = await UserLogisticApp.findOne({ email });
     if (!existingUser) return next(createError(400, "User Not Found"));
 
     const isPasswordCorrect = await bcrypt.compare(

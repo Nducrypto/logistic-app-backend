@@ -11,7 +11,7 @@ const router = express.Router();
 // import auth from "../middleware/auth.js";
 
 router.get("/", getInfo);
-router.post("/", verifyUser, createInfo);
+router.post("/", createInfo);
 router.delete("/:id", verifyAdmin, deleteInfo);
 
 export default router;

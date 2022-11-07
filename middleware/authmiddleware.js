@@ -9,7 +9,7 @@ export const verifyUser = (req, res, next) => {
 
     const existingUser = jwt.verify(token, process.env.JWT_SECRET);
     if (!existingUser) return next(createError(402, "token is not valid"));
-    if (existingUser.id || isAdmin) {
+    if (existingUser.id === req.params.id || isAdmin) {
       next();
     } else {
       return next(createError(404, "You're Not Authoriized"));
