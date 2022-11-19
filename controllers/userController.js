@@ -28,11 +28,13 @@ export const updateUser = async (req, res, next) => {
     const user = await UserLogisticApp.findById(req.params.id);
 
     if (user) {
-      const { _id, email, bio, userName, firstName, lastName } = user;
+      const { _id, email, bio, userName, phoneNumber, firstName, lastName } =
+        user;
       user.email = email;
       user.userName = req.body.userName || userName;
       user.firstName = req.body.firstName || firstName;
       user.lastName = req.body.lastName || lastName;
+      user.phoneNumber = req.body.phoneNumber || phoneNumber;
       user.bio = req.body.bio || bio;
     }
     const updatedUser = await user.save();
