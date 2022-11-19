@@ -27,7 +27,7 @@ export const register = async (req, res, next) => {
       { id: result._id, isAdmin: result.isAdmin },
       process.env.JWT_SECRET,
       {
-        expiresIn: "3d",
+        expiresIn: "1y",
       }
     );
     res.status(200).json({ result, token });
@@ -54,7 +54,7 @@ export const login = async (req, res, next) => {
       { id: existingUser._id, isAdmin: existingUser.isAdmin },
       process.env.JWT_SECRET,
       {
-        expiresIn: "3d",
+        expiresIn: "1y",
       }
     );
     const { password, ...otherDetails } = existingUser._doc;
