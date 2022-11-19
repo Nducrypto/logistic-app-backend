@@ -14,6 +14,7 @@ const postSchema = mongoose.Schema({
   creator: String,
   bookedSeat: [],
   selectedSeats: [],
+  totalPrice: String,
   date: {
     type: Date,
     default: new Date(),
