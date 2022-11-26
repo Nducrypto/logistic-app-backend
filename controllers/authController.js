@@ -59,7 +59,7 @@ export const login = async (req, res, next) => {
     );
     const { password, ...otherDetails } = existingUser._doc;
 
-    res.status(200).json({ result: { ...otherDetails }, token });
+    res.status(200).json({ result: otherDetails, token });
   } catch (err) {
     next(createError(404, "Failed To Login"));
   }

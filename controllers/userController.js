@@ -1,7 +1,7 @@
 import express from "express";
-import mongoose from "mongoose";
 import UserLogisticApp from "../models/userModel.js";
 import { createError } from "../utils/error.js";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
@@ -17,6 +17,7 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res, next) => {
   try {
     const user = await UserLogisticApp.find({ _id: req.params.id });
+
     res.status(200).json(user);
   } catch (err) {
     next(createError(401, "error making user request"));
@@ -28,8 +29,7 @@ export const updateUser = async (req, res, next) => {
     const user = await UserLogisticApp.findById(req.params.id);
 
     if (user) {
-      const { _id, email, bio, userName, phoneNumber, firstName, lastName } =
-        user;
+      const { email, bio, userName, phoneNumber, firstName, lastName } = user;
       user.email = email;
       user.userName = req.body.userName || userName;
       user.firstName = req.body.firstName || firstName;
@@ -37,8 +37,16 @@ export const updateUser = async (req, res, next) => {
       user.phoneNumber = req.body.phoneNumber || phoneNumber;
       user.bio = req.body.bio || bio;
     }
-    const updatedUser = await user.save();
-    res.status(200).json(updatedUser);
+    const result = await user.save();
+
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1y",
+      }
+    );
+    res.status(200).json({ result, token });
   } catch (err) {
     next(createError(401, "failed to update"));
   }
