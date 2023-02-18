@@ -5,7 +5,7 @@ import {
   getInfo,
   deleteInfo,
 } from "../controllers/Bookedcontroller.js";
-import { verifyAdmin, verifyUser } from "../middleware/authmiddleware.js";
+import { verifyAdmin } from "../middleware/authmiddleware.js";
 
 const router = express.Router();
 // import auth from "../middleware/auth.js";

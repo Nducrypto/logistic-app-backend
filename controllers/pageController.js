@@ -55,8 +55,6 @@ export const deleteLocation = async (req, res) => {
 };
 
 export const updateSeatAvailability = async (req, res, next) => {
-  // console.log(req.params);
-  // console.log(req.body);
   try {
     await BookingTravel.updateOne(
       { "seatNumbers._id": req.params.id },
@@ -67,6 +65,25 @@ export const updateSeatAvailability = async (req, res, next) => {
       }
     );
     res.status(200).json("Seat booking status has been updated.");
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const deleteDate = async (req, res, next) => {
+  const { unavailableDates, id, seatNumberId } = req.params;
+  // console.log(req.params);
+  try {
+    await BookingTravel.updateOne(
+      { id, "seatNumbers._id": seatNumberId },
+
+      {
+        $pull: {
+          "seatNumbers.$.unavailableDates": unavailableDates,
+        },
+      }
+    );
+    res.status(200).json("Date has been deleted");
   } catch (err) {
     next(err);
   }

@@ -12,6 +12,7 @@ const postSchema = mongoose.Schema({
   phoneNumber: String,
   email: String,
   creator: String,
+  vehicleId: String,
   bookedSeat: [],
   selectedSeats: [],
   totalPrice: String,
