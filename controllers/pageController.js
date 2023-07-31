@@ -45,7 +45,7 @@ export const createBooking = async (req, res) => {
 
 export const deleteLocation = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No booking with id: ${id}`);
 
@@ -56,6 +56,10 @@ export const deleteLocation = async (req, res) => {
 
 export const updateSeatAvailability = async (req, res, next) => {
   try {
+    if (!req.params.id || !req.body.date) {
+      return res.status(400).json({ error: "Invalid input parameters." });
+    }
+
     await BookingTravel.updateOne(
       { "seatNumbers._id": req.params.id },
       {
